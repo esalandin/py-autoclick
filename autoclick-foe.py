@@ -1,6 +1,23 @@
 import pyautogui
 
+
+def printUsage():
+    print('--- autoclick per FOE - assedio ---')
+    print('p1 imposta posizione 1 (freccia arancione)')
+    print('p2 imposta posizione 2 (paga e posiziona)')
+    print('c  click')
+    print('s  salva le posizioni su file')
+    print('l  carica le posizioni da file')
+    print('v1 vai alla posizione 1')
+    print('v2 vai alla posizione 2')
+    print('premendo solo enter si ripete l\'ultimo comando')
+    
+
 optfname='/tmp/autoclick-foe-options'
+printUsage()
+
+pos1=None
+pos2=None
 
 try:
     cmd=''
@@ -23,19 +40,22 @@ try:
             print(pos2)
             pyautogui.moveTo(pos2)
         elif cmd=='c':
-            print("click")
-            pos0= pyautogui.position()
-            pyautogui.moveTo(pos1)
-            pyautogui.mouseDown()
-            pyautogui.mouseUp()
-            pyautogui.move(5,0)
-            pyautogui.move(-5,0)
-            pyautogui.mouseDown()
-            pyautogui.mouseUp()
-            pyautogui.moveTo(pos2)
-            pyautogui.mouseDown()
-            pyautogui.mouseUp()
-            pyautogui.moveTo(pos0)
+            if pos1 is None or pos2 is None:
+                print('posizioni non definite')
+            else:
+                print("click")
+                pos0= pyautogui.position()
+                pyautogui.moveTo(pos1)
+                pyautogui.mouseDown()
+                pyautogui.mouseUp()
+                pyautogui.move(5,0)
+                pyautogui.move(-5,0)
+                pyautogui.mouseDown()
+                pyautogui.mouseUp()
+                pyautogui.moveTo(pos2)
+                pyautogui.mouseDown()
+                pyautogui.mouseUp()
+                pyautogui.moveTo(pos0)
         elif cmd=='s':
             with open(optfname, 'w') as optf:
                 optf.writelines([str(pos1.x), '\n', str(pos1.y), '\n'])
@@ -56,6 +76,8 @@ try:
                 print('loaded')
                 optf.close()
             pyautogui.moveTo(pos0)
+        elif cmd=='h':
+            printUsage()
         elif cmd=='quit':
             print("quit")
         else:
