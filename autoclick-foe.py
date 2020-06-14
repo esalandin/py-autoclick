@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import pyautogui
 
 
@@ -18,6 +20,7 @@ printUsage()
 
 pos1=None
 pos2=None
+lastcmd='h'
 
 try:
     cmd=''
